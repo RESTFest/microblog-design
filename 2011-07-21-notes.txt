@@ -1,0 +1,21 @@
+Micoblog data design
+
+*** documents ***
+users
+posts
+
+
+*** views ***
+messages-all
+messages-me
+messages-friends
+messages-mentions
+messages-shares (???)
+messages-replies (???)
+messages-search
+
+users-all
+users-me (single record)
+users-friends (i follow these)
+users-followers (they follow me)
+users-search
