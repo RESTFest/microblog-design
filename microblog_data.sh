@@ -1,0 +1,39 @@
+#! /bin/bash
+
+# 2011-06.21 (mca) html5-microblog data for couchdb
+
+clear
+echo '2011-06-21 (mca) html5-microblog for couchdb'
+
+echo 'creating db...'
+curl -vX DELETE http://localhost:5984/html5-microblog
+curl -vX PUT http://localhost:5984/html5-microblog
+
+echo 'adding design document...'
+curl -vX PUT http://localhost:5984/html5-microblog/_design/microblog -d @design-doc.json
+
+echo 'adding users...'
+curl -vX PUT http://localhost:5984/html5-microblog/mamund -d @user-mamund.json
+curl -vX PUT http://localhost:5984/html5-microblog/lee -d @user-lee.json
+
+echo 'testing user views...'
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/users_all
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/users_by_id?key=\"m\"
+
+echo 'adding posts...'
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post1-mamund.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post2-mamund.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post1-lee.json
+
+echo 'testing post views...'
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/posts_all
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/posts_by_user?key=\"mamund\"
+
+echo 'adding follows...'
+curl -vX POST http://localhost:5984/html5-microblog/ -d @follows-mamund.json
+#curl -vX POST http://localhost:5984/html5-microblog/ -d @follows-lee.json
+
+echo 'testing follow views...'
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/follows_user_is_following?key=\"mamund\"
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/follows_is_following_user?key=\"mamund\"
+
