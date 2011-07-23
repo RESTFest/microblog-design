@@ -38,7 +38,7 @@
     "posts_by_user" : {
       "map" : "function(doc) {
         if(doc.user && doc.type==='post') {
-          emit(doc.user,doc);
+          emit(doc.dateCreated.split('-').concat(doc.user),doc);
         }
       }"
     },
