@@ -3,7 +3,7 @@
   
   "views" : {
     
-    "users_all" : {
+    "users_search" : {
       "map" : "function(doc){
         if(doc._id && doc.type==='user') {
           emit(doc._id,doc);
@@ -12,11 +12,8 @@
     },
     "users_by_id" : {
       "map" : "function(doc){
-        var i,x;
         if(doc._id && doc.type==='user') {
-          for(i=0,x=doc._id.length;i<x; i++) {
-            emit(doc._id.slice(i), doc);          
-          }
+          emit(doc._id,doc);
         }
       }"
     },
@@ -29,6 +26,13 @@
       }"
     },
     "posts_by_user" : {
+      "map" : "function(doc) {
+        if(doc._id && doc.type==='post') {
+          emit(doc.user, doc);
+        }
+      }"
+    },
+    "posts_search" : {
       "map" : "function(doc) {
         if(doc._id && doc.type==='post') {
           emit(doc.user, doc);
