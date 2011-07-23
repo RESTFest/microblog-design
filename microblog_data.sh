@@ -23,11 +23,11 @@ curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/users_all
 curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/users_by_id?startkey=\"m\"\&endkey=\"m\\u9999\"
 
 echo 'adding posts...'
-curl -vX POST http://localhost:5984/html5-microblog/ -d @post1-mamund.json
-curl -vX POST http://localhost:5984/html5-microblog/ -d @post2-mamund.json
-curl -vX POST http://localhost:5984/html5-microblog/ -d @post1-lee.json
-curl -vX POST http://localhost:5984/html5-microblog/ -d @benjamin-post1.json
-curl -vX POST http://localhost:5984/html5-microblog/ -d @post1-mary.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post-mamund1.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post-mamund2.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post-lee1.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post-benjamin1.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @post-mary1.json
 
 echo 'testing post views...'
 curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/posts_all?descending=true
