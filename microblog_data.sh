@@ -15,6 +15,7 @@ curl -vX PUT http://localhost:5984/html5-microblog/_design/microblog -d @design-
 echo 'adding users...'
 curl -vX PUT http://localhost:5984/html5-microblog/mamund -d @user-mamund.json
 curl -vX PUT http://localhost:5984/html5-microblog/lee -d @user-lee.json
+curl -vX PUT http://localhost:5984/html5-microblog/lee -d @user-benjamin.json
 
 echo 'testing user views...'
 curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/users_all
@@ -24,6 +25,7 @@ echo 'adding posts...'
 curl -vX POST http://localhost:5984/html5-microblog/ -d @post1-mamund.json
 curl -vX POST http://localhost:5984/html5-microblog/ -d @post2-mamund.json
 curl -vX POST http://localhost:5984/html5-microblog/ -d @post1-lee.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @benjamin-post1.json
 
 echo 'testing post views...'
 curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/posts_all
@@ -31,9 +33,11 @@ curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/posts_by_u
 
 echo 'adding follows...'
 curl -vX POST http://localhost:5984/html5-microblog/ -d @follows-mamund.json
-#curl -vX POST http://localhost:5984/html5-microblog/ -d @follows-lee.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @follows-lee.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @follows-benjamin.json
+curl -vX POST http://localhost:5984/html5-microblog/ -d @follows-mamund2.json
 
 echo 'testing follow views...'
-curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/follows_user_is_following?key=\"mamund\"
-curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/follows_is_following_user?key=\"mamund\"
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/follows_user_is_following?include_docs=true&key=\"mamund\"
+curl -v http://localhost:5984/html5-microblog/_design/microblog/_view/follows_is_following_user?include_docs=true&key=\"mamund\"
 

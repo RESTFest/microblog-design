@@ -24,7 +24,14 @@
     "posts_all" : {
       "map" : "function(doc) {
         if(doc._id && doc.type==='post') {
-          emit(doc._id,doc);
+          emit(doc.dateCreated.split('-'),doc);
+        }
+      }"
+    },
+    "posts_by_user" : {
+      "map" : "function(doc) {
+        if(doc._id && doc.type==='post') {
+          emit(doc.user, doc);
         }
       }"
     },
@@ -39,17 +46,17 @@
     "follows_user_is_following" : {
       "map" : "function(doc) {
         if(doc.user && doc.type==='follow') {
-          emit(doc.user, doc.follows);
+          emit(doc.user, {_id:doc.follows});
         }
       }"
     },
     "follows_is_following_user" : {
       "map" : "function(doc) {
         if(doc.follows && doc.type==='follow') {
-          emit(doc.follows, doc.user);
+          emit(doc.follows, {_id:doc.user});
         }
       }"
-    },
+    }
   },
 
   "validate_doc_update": "function(newDoc, oldDoc, userCtx) {
@@ -90,4 +97,3 @@
     }    
   }"
 }
-

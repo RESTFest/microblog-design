@@ -7,15 +7,23 @@ posts
 
 *** views ***
 messages-all
+
 messages-me
 messages-friends
 messages-mentions
 messages-shares (???)
 messages-replies (???)
+
 messages-search
+startkey="ab"&endkey="ab\u9999"
 
 users-all
+
 users-me (single record)
+key="mamund"
+
 users-friends (i follow these)
 users-followers (they follow me)
+
 users-search
+startkey="ab"&endkey="ab\u9999"
